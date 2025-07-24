@@ -20,10 +20,8 @@
         :options="checkboxOptions"
         label="Select your interests"
       />
-
       <RadioButton v-model="gender" :options="genders" name="gender" />
-
-      <Button class="mt-4" @click="submit">Submit</Button>
+      <CustomButton class="mt-4" @click="submit">Submit</CustomButton>
     </Card>
   </div>
  

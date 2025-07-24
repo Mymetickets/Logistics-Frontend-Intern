@@ -12,7 +12,7 @@ import Card from "./components/ui/Card.vue";
 createApp(App)
   .component("SelectBox", SelectBox)
   .component("InputBox", InputBox)
-  .component("Button", Button)
+  .component("CustomButton", Button)
   .component("Card", Card)
   .component("RadioButton", RadioButton)
   .component("Checkbox", CheckBox)
