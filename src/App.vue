@@ -1,33 +1,63 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+
+  <div class="container mx-auto px-4 py-8">
+    <Card>
+      <h1 class="text-2xl font-semibold mb-4">Form Example</h1>
+
+      <InputBox
+        label="Name"
+        placeholder="Enter your name"
+        v-model="name"
+      />
+
+      <SelectBox
+        v-model="selectedOption"
+        :options="options"
+      />
+
+      <CheckBox
+        v-model="selectedValues"
+        :options="checkboxOptions"
+        label="Select your interests"
+      />
+      <RadioButton v-model="gender" :options="genders" name="gender" />
+      <CustomButton class="mt-4" @click="submit">Submit</CustomButton>
+    </Card>
   </div>
-  <HelloWorld msg="Vite + Vue" />
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+ 
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script setup>
+
+import { ref } from 'vue'
+import CheckBox from "./components/ui/CheckBox.vue";
+
+
+const name = ref('')
+const selectedOption = ref('')
+const gender = ref('')
+const selectedValues = ref([])
+
+
+const checkboxOptions = [
+  { label: 'Option 1', value: 'option1' },
+  { label: 'Option 2', value: 'option2' },
+  { label: 'Option 3', value: 'option3' }
+]
+
+
+const options = [
+  { label: 'Option A', value: 'a' },
+  { label: 'Option B', value: 'b' }
+]
+
+const genders = [
+  { label: 'Male', value: 'male' },
+  { label: 'Female', value: 'female' }
+]
+
+function submit() {
+  console.log({ name: name.value, selectedOption: selectedOption.value, gender: gender.value, selectedValues: selectedValues.value })
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+
+</script>
