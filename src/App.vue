@@ -1,19 +1,11 @@
 <template>
-
   <div class="container mx-auto px-4 py-8">
     <Card>
       <h1 class="text-2xl font-semibold mb-4">Form Example</h1>
 
-      <InputBox
-        label="Name"
-        placeholder="Enter your name"
-        v-model="name"
-      />
+      <InputBox label="Name" placeholder="Enter your name" v-model="name" />
 
-      <SelectBox
-        v-model="selectedOption"
-        :options="options"
-      />
+      <SelectBox v-model="selectedOption" :options="options" />
 
       <CheckBox
         v-model="selectedValues"
@@ -23,41 +15,53 @@
       <RadioButton v-model="gender" :options="genders" name="gender" />
       <CustomButton class="mt-4" @click="submit">Submit</CustomButton>
     </Card>
+    <div class="mb-6 space-x-10 flex">
+      <CategoryForm />
+      <CategoryList />
+    </div>
+
+    <div class="mb-6 space-x-10 flex">
+      <TransportModeForm />
+      <TransportModeList />
+    </div>
   </div>
- 
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import CheckBox from './components/ui/CheckBox.vue';
+import CategoryForm from './components/transportation/CategoryForm.vue';
+import TransportModeForm from './components/transportation/TransportModeForm.vue';
+import CategoryList from './components/transportation/CategoryList.vue';
+import TransportModeList from './components/transportation/TransportModeList.vue';
 
-import { ref } from 'vue'
-import CheckBox from "./components/ui/CheckBox.vue";
-
-
-const name = ref('')
-const selectedOption = ref('')
-const gender = ref('')
-const selectedValues = ref([])
-
+const name = ref('');
+const selectedOption = ref('');
+const gender = ref('');
+const selectedValues = ref([]);
 
 const checkboxOptions = [
   { label: 'Option 1', value: 'option1' },
   { label: 'Option 2', value: 'option2' },
-  { label: 'Option 3', value: 'option3' }
-]
-
+  { label: 'Option 3', value: 'option3' },
+];
 
 const options = [
   { label: 'Option A', value: 'a' },
-  { label: 'Option B', value: 'b' }
-]
+  { label: 'Option B', value: 'b' },
+];
 
 const genders = [
   { label: 'Male', value: 'male' },
-  { label: 'Female', value: 'female' }
-]
+  { label: 'Female', value: 'female' },
+];
 
 function submit() {
-  console.log({ name: name.value, selectedOption: selectedOption.value, gender: gender.value, selectedValues: selectedValues.value })
+  console.log({
+    name: name.value,
+    selectedOption: selectedOption.value,
+    gender: gender.value,
+    selectedValues: selectedValues.value,
+  });
 }
-
 </script>

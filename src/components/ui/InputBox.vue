@@ -8,8 +8,7 @@
       :placeholder="placeholder"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      class="block w-full mt-1 text-sm border border-gray-300 outline outline-2 outline-purple-400 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:outline-purple-400 rounded-md px-3 py-2"
-
+      class="block w-full mt-1 text-sm border border-gray-300 outline-2 outline-purple-400 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:outline-purple-400 rounded-md px-3 py-2"
     />
   </label>
 </template>
@@ -20,10 +19,10 @@ const props = defineProps({
   placeholder: String,
   type: {
     type: String,
-    default: 'text'
+    default: 'text',
   },
-  modelValue: String
-})
+  modelValue: String,
+});
 
-defineEmits(['update:modelValue'])
+defineEmits(['update:modelValue']);
 </script>
