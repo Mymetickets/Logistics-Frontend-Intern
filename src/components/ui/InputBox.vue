@@ -1,9 +1,9 @@
 <template>
-  <label class="block text-sm">
-    <span class="text-gray-700 dark:text-gray-400">
+  <label class="block text-sm my-8">
+    <span class="text-gray-700 dark:text-gray-400 font-medium ">
       {{ label }}
     </span>
-    <input
+    <input 
       :type="type"
       :placeholder="placeholder"
       :value="modelValue"
