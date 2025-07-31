@@ -1,8 +1,13 @@
 <template>
-  <div class="">
-    <h2>Add Transportation Mode</h2>
+  <div
+    class="bg-black/70 flex justify-center items-center absolute w-full h-full"
+  >
     <div class="w-[500px]">
       <Card>
+        <div class="flex justify-between text-white">
+          <h2>Add Transportation Mode</h2>
+          <p @click="emit('close')" class="text-lg cursor-pointer">X</p>
+        </div>
         <form>
           <InputBox label="Name" v-model="name" />
           <InputBox class="mt-4" label="Descriptions" v-model="description" />
@@ -28,11 +33,14 @@ const description = ref('');
 const selectedOption = ref('');
 const error = ref('');
 
+const emit = defineEmits();
+
 const options = [
   { label: 'Road', value: 'Road' },
   { label: 'Rail', value: 'Rail' },
   { label: 'Air', value: 'Air' },
   { label: 'Water', value: 'Water' },
+  { label: 'Space', value: 'Space' },
 ];
 
 const generateId = () => {
@@ -52,6 +60,8 @@ const submit = async (e) => {
     name.value = '';
     description.value = '';
     selectedOption.value = '';
+
+    emit('close');
   } else {
     error.value = 'Name, description and category Required';
 

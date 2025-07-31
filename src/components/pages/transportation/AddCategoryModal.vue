@@ -1,8 +1,13 @@
 <template>
-  <div class="">
-    <h2>Add Transportation Category</h2>
+  <div
+    class="bg-black/70 flex justify-center items-center absolute w-full h-full"
+  >
     <div class="w-[500px]">
       <Card>
+        <div class="flex justify-between text-white">
+          <h2 class="">Add Transportation Category</h2>
+          <p @click="emit('close')" class="text-lg cursor-pointer">X</p>
+        </div>
         <form>
           <InputBox label="Name" v-model="name" />
           <InputBox class="mt-4" label="Descriptions" v-model="description" />
@@ -20,6 +25,8 @@ import { ref } from 'vue';
 const name = ref('');
 const description = ref('');
 const error = ref('');
+
+const emit = defineEmits();
 
 const generateId = () => {
   const id = Math.floor(Math.random() * 10000);
@@ -45,6 +52,8 @@ const submit = async (e) => {
 
     name.value = '';
     description.value = '';
+
+    emit('close');
   } else {
     error.value = 'Name and descripton Required';
 
