@@ -21,6 +21,9 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useTransportationStore } from '../../../stores/transportations';
+
+const transportStore = useTransportationStore();
 
 const name = ref('');
 const description = ref('');
@@ -43,12 +46,14 @@ const generateSlug = (name) => {
 
 const submit = async (e) => {
   if (name.value && description.value) {
-    console.log({
+    const payload = {
       id: generateId(),
       name: name.value,
       description: description.value,
       slug: generateSlug(name.value),
-    });
+    }
+    console.log(payload);
+    transportStore.addTransportationCategory(payload);
 
     name.value = '';
     description.value = '';

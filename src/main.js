@@ -9,6 +9,7 @@ import Button from "./components/ui/Button.vue";
 import RadioButton from "./components/ui/RadioButton.vue";
 import CheckBox from "./components/ui/CheckBox.vue";
 import Card from "./components/ui/Card.vue";
+import { createPinia } from "pinia";
 
 const app = createApp(App)
   .component("SelectBox", SelectBox)
@@ -17,6 +18,7 @@ const app = createApp(App)
   .component("Card", Card)
   .component("RadioButton", RadioButton)
   .component("Checkbox", CheckBox);
-
+const pinia = createPinia();
+app.use(pinia);
 app.use(router);
 app.mount("#app");

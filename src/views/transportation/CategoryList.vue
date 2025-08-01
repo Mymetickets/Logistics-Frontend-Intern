@@ -6,23 +6,23 @@
       <customButton @click="toggleModal"> Add Category </customButton>
     </div>
     <div class="px-20">
-      <table class="tftable">
+      <table class="w-full border border-gray-300 p-5">
         <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Slug</th>
-            <th>Status</th>
+          <tr class="bg-purple-600 text-white">
+            <th class="px-6 py-3">Id</th>
+            <th class="px-6 py-3">Name</th>
+            <th class="px-6 py-3">Description</th>
+            <th class="px-6 py-3">Slug</th>
+            <th class="px-6 py-3">Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="category in transportationCategories" :key="category.id">
-            <td>{{ category.id }}</td>
-            <td>{{ category.name }}</td>
-            <td>{{ category.description }}</td>
-            <td>{{ category.slug }}</td>
-            <td>{{ category.status }}</td>
+          <tr class="border border-gray-300" v-for="category in transportationCategories" :key="category.id">
+            <td class="px-6 py-3">{{ category.id }}</td>
+            <td class="px-6 py-3">{{ category.name }}</td>
+            <td class="px-6 py-3">{{ category.description }}</td>
+            <td class="px-6 py-3">{{ category.slug }}</td>
+            <td class="px-6 py-3">{{ category.status }}</td>
           </tr>
         </tbody>
       </table>
@@ -31,100 +31,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import AddCategorymodal from '../../components/pages/transportation/AddCategoryModal.vue';
+import { useTransportationStore } from '../../stores/transportations';
 
+const transportStore = useTransportationStore();
+const transportationCategories = computed(() => {
+  return transportStore.transportationCategories;
+});
 const isModalOpen = ref(false);
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value;
 };
 
-const transportationCategories = [
-  {
-    id: '1',
-    name: 'Road',
-    description: 'Travel by vehicles on roads.',
-    slug: 'road',
-    status: 'active',
-  },
-  {
-    id: '2',
-    name: 'Rail',
-    description: 'Travel using trains on tracks.',
-    slug: 'rail',
-    status: 'active',
-  },
-  {
-    id: '3',
-    name: 'Air',
-    description: 'Travel by airplanes or helicopters.',
-    slug: 'air',
-    status: 'active',
-  },
-  {
-    id: '4',
-    name: 'Water',
-    description: 'Travel by boats or ships.',
-    slug: 'water',
-    status: 'active',
-  },
-  {
-    id: '6',
-    name: 'Space',
-    description: 'Travel beyond Earth.',
-    slug: 'space',
-    status: 'inactive',
-  },
-];
+onMounted(()=>{
+  transportStore.getTransportationCategories();
+});
 
-// import { onMounted, reactive } from 'vue';
-
-// const categoryList = reactive([]);
-
-// const getAllCategory = async () => {
-//   try {
-//     const response = await fetch('url');
-//     const data = await JSON.parse(response);
-//     categoryList = data;
-//   } catch (err) {
-//     console.log(err.message);
-//   }
-// };
-
-// onMounted(() => {
-//   getAllCategory();
-// });
 </script>
 
 <style scoped>
-.tftable {
-  font-size: 14px;
-  color: #333333;
-  width: 100%;
-  border-width: 1px;
-  border-color: #9810fa;
-  border-collapse: collapse;
-}
-.tftable th {
-  font-size: 18px;
-  background-color: #9810fa;
-  border-width: 1px;
-  padding: 8px;
-  border-style: solid;
-  border-color: #9810fa;
-  text-align: left;
-}
-.tftable tr {
-  background-color: #ffffff;
-}
-.tftable td {
-  font-size: 14px;
-  border-width: 1px;
-  padding: 8px;
-  border-style: solid;
-  border-color: #9810fa;
-}
-.tftable tr:hover {
-  background-color: #e0ffff;
-}
 </style>
