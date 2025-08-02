@@ -51,7 +51,7 @@ const submit = async (e) => {
       name: name.value,
       description: description.value,
       slug: generateSlug(name.value),
-    }
+    };
     console.log(payload);
     transportStore.addTransportationCategory(payload);
 
@@ -66,27 +66,6 @@ const submit = async (e) => {
       error.value = '';
     }, 3000);
   }
-
-  //   try {
-  //     if (name.value && description.value) {
-  //       const response = await fetch('', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({
-  //           id: generateId(),
-  //           name: name.value,
-  //           description: description.value,
-  //           slug: generateSlug(name.value),
-  //         }),
-  //       });
-  //     } else {
-  //       error.value = 'Name and descripton Required';
-  //     }
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
 };
 </script>
 
