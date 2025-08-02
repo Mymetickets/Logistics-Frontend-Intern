@@ -4,7 +4,7 @@
   >
     <div class="w-[500px]">
       <Card>
-        <div class="flex justify-between text-white">
+        <div class="flex justify-between">
           <h2>Add Transportation Mode</h2>
           <p @click="emit('close')" class="text-lg cursor-pointer">X</p>
         </div>
@@ -26,7 +26,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { useTransportationStore } from '../../../stores/transportations';
 
 const name = ref('');
 const description = ref('');
@@ -35,13 +36,18 @@ const error = ref('');
 
 const emit = defineEmits();
 
-const options = [
-  { label: 'Road', value: 'Road' },
-  { label: 'Rail', value: 'Rail' },
-  { label: 'Air', value: 'Air' },
-  { label: 'Water', value: 'Water' },
-  { label: 'Space', value: 'Space' },
-];
+const transportStore = useTransportationStore();
+
+const options = computed(() => {
+  return transportStore.transportationCategories.map((category) => ({
+    id: category.id,
+    label: category.name,
+  }));
+});
+
+onMounted(() => {
+  transportStore.getTransportationCategories();
+});
 
 const generateId = () => {
   const id = Math.floor(Math.random() * 10000);
@@ -50,12 +56,17 @@ const generateId = () => {
 
 const submit = async (e) => {
   if (name.value && description.value && selectedOption.value) {
-    console.log({
+    const payload = {
       id: generateId(),
       name: name.value,
       description: description.value,
       category: selectedOption.value,
-    });
+      status: 'active',
+    };
+
+    console.log(payload);
+
+    transportStore.addTransportationMode(payload);
 
     name.value = '';
     description.value = '';
@@ -69,27 +80,6 @@ const submit = async (e) => {
       error.value = '';
     }, 3000);
   }
-
-  //   try {
-  //     if (name.value && description.value) {
-  //       const response = await fetch('', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({
-  //           id: generateId(),
-  //           name: name.value,
-  //           description: description.value,
-  //           slug: generateSlug(name.value),
-  //         }),
-  //       });
-  //     } else {
-  //       error.value = 'Name and descripton Required';
-  //     }
-  //   } catch (err) {
-  //     console.log(err.message);
-  //   }
 };
 </script>
 
