@@ -10,7 +10,7 @@
         <p class="text-lg mb-8 text-gray-700">
           Real-time tracking, route optimization, and powerful analytics — all in one platform.
         </p>
-        <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition cursor-pointer">
+        <button  class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition cursor-pointer">
           Get Started
         </button>
       </div>
@@ -61,7 +61,7 @@
 
 import router from '../../router';
 
-const 
+
 
 
 </script>
