@@ -34,20 +34,16 @@
 import { onMounted, ref, computed } from 'vue';
 import AddCategorymodal from '../../components/pages/transportation/AddCategoryModal.vue';
 import { useTransportationStore } from '../../stores/transportations';
+import useModalToggle from '../../hooks/toggle';
 
 const transportStore = useTransportationStore();
 const transportationCategories = computed(() => {
   return transportStore.transportationCategories;
 });
-const isModalOpen = ref(false);
-const toggleModal = () => {
-  isModalOpen.value = !isModalOpen.value;
-};
-
+const { isModalOpen, toggleModal } = useModalToggle(false);
 onMounted(()=>{
   transportStore.getTransportationCategories();
 });
-
 </script>
 
 <style scoped>

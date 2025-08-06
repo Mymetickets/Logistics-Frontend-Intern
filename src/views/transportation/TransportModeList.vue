@@ -39,17 +39,13 @@
 import { computed, onMounted, ref } from 'vue';
 import AddTransportModeModal from '../../components/pages/transportation/AddTransportModeModal.vue';
 import { useTransportationStore } from '../../stores/transportations';
+import useModalToggle from '../../hooks/toggle';
 
 const transportStore = useTransportationStore();
 const transportModes = computed(() => {
   return transportStore.transportationModes;
 });
-
-const isModalOpen = ref(false);
-const toggleModal = () => {
-  isModalOpen.value = !isModalOpen.value;
-};
-
+const { isModalOpen, toggleModal } = useModalToggle();
 onMounted(() => {
   transportStore.getTransportationMode();
 });

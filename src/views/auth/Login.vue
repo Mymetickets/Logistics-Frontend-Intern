@@ -16,10 +16,10 @@
         </h1>
 
 
-        <InputBox label="Email" placeholder="Enter your email" v-model="email" type="text" />
+        <InputBox label="Email" placeholder="Enter your email" v-model="loginForm.email" type="text" />
 
 
-           <InputBox label="Password" placeholder="***************" v-model="password" type="password"/>
+           <InputBox label="Password" placeholder="***************" v-model="loginForm.password" type="password"/>
 
      
 
@@ -56,12 +56,11 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthenticationStore } from '../../stores/authentication';
+import { loginPayload } from '../../dtos/login';
 
-const email = ref('');
-const password = ref('');
+const loginForm = ref(loginPayload);
 const router = useRouter();
 const authenticationStore = useAuthenticationStore();
-
 
 const errorMessage = ref('');
 
@@ -70,12 +69,12 @@ const validateForm = () => {
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!emailPattern.test(email.value)) {
+  if (!emailPattern.test(loginForm.value.email)) {
     errorMessage.value = 'Invalid email format';
     return false;
   }
 
-  if (!email.value || !password.value) {
+  if (!loginForm.value.email || !loginForm.value.password) {
     errorMessage.value = 'Email and password are required';
     return false;
   }
@@ -86,7 +85,7 @@ const validateForm = () => {
 const submit = () => {
   
   if (validateForm()) {
-    const isAuthenticated = authenticationStore.isAuthenticated({ email: email.value, password: password.value });
+    const isAuthenticated = authenticationStore.isAuthenticated({ email: loginForm.value.email, password: loginForm.value.password });
     if (isAuthenticated) {
       router.push('/transportation/category');
     } else {

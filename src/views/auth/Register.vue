@@ -73,7 +73,6 @@ const validateForm = () => {
     return false;
   }
 
-
   if (!email.value || !password.value || !confirmPassword.value) {
     errorMessage.value = 'All fields are required';
     return false;
