@@ -46,6 +46,7 @@ const transportModes = computed(() => {
   return transportStore.transportationModes;
 });
 const { isModalOpen, toggleModal } = useModalToggle();
+
 onMounted(() => {
   transportStore.getTransportationMode();
 });

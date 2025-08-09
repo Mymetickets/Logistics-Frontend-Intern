@@ -9,10 +9,14 @@
           <p @click="emit('close')" class="text-lg cursor-pointer">X</p>
         </div>
         <form>
-          <InputBox label="Name" v-model="name" />
-          <InputBox class="mt-4" label="Descriptions" v-model="description" />
+          <InputBox label="Name" v-model="transportMode.name" />
+          <InputBox
+            class="mt-4"
+            label="Descriptions"
+            v-model="transportMode.description"
+          />
           <SelectBox
-            v-model="selectedOption"
+            v-model="transportMode.category"
             :options="options"
             label="Category"
           />
@@ -26,17 +30,17 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useTransportationStore } from '../../../stores/transportations';
+import { createTransportModePayload } from '../../../dtos/transportationDto';
+import useFormError from '../../../hooks/FormError';
 
-const name = ref('');
-const description = ref('');
-const selectedOption = ref('');
-const error = ref('');
+const transportMode = reactive(createTransportModePayload());
 
 const emit = defineEmits();
 
 const transportStore = useTransportationStore();
+const { error, setError } = useFormError();
 
 const options = computed(() => {
   return transportStore.transportationCategories.map((category) => ({
@@ -49,36 +53,27 @@ onMounted(() => {
   transportStore.getTransportationCategories();
 });
 
-const generateId = () => {
-  const id = Math.floor(Math.random() * 10000);
-  return id;
-};
-
-const submit = async (e) => {
-  if (name.value && description.value && selectedOption.value) {
+const submit = () => {
+  if (
+    transportMode.name &&
+    transportMode.description &&
+    transportMode.category
+  ) {
     const payload = {
-      id: generateId(),
-      name: name.value,
-      description: description.value,
-      category: selectedOption.value,
-      status: 'active',
+      ...transportMode,
     };
 
     console.log(payload);
 
     transportStore.addTransportationMode(payload);
 
-    name.value = '';
-    description.value = '';
-    selectedOption.value = '';
+    transportMode.name = '';
+    transportMode.description = '';
+    transportMode.category = '';
 
     emit('close');
   } else {
-    error.value = 'Name, description and category Required';
-
-    setTimeout(() => {
-      error.value = '';
-    }, 3000);
+    setError('Name and descripton Required');
   }
 };
 </script>
